@@ -22,6 +22,7 @@ class Ui_MainWindow(object):
         (pub_key, priv_key) = rsa.newkeys(512)
         self.enc = Enc(pub_key, priv_key)
         self.rcv = Rcv(pub_key, priv_key)
+        self.rcv.set_message = self.set_message
         self.cht = Chat(rcv=self.rcv, enc=self.enc)
 
     def setupUi(self, MainWindow):
@@ -180,9 +181,9 @@ class Ui_MainWindow(object):
                                         "  width: auto;")
         self.groupBox_3.setFlat(False)
         self.groupBox_3.setObjectName("groupBox_3")
-        self.imput_line = QtWidgets.QLineEdit(self.groupBox_3)
-        self.imput_line.setGeometry(QtCore.QRect(20, 460, 411, 41))
-        self.imput_line.setStyleSheet("QLineEdit { \n"
+        self.input_line = QtWidgets.QLineEdit(self.groupBox_3)
+        self.input_line.setGeometry(QtCore.QRect(20, 460, 411, 41))
+        self.input_line.setStyleSheet("QLineEdit { \n"
                                         "  background-color: #FFFFFF;\n"
                                         "  border: 1px solid #222222;\n"
                                         "  border-radius: 8px;\n"
@@ -205,8 +206,8 @@ class Ui_MainWindow(object):
                                         "  -webkit-user-select: none;\n"
                                         "  width: auto;\n"
                                         "}")
-        self.imput_line.setText("")
-        self.imput_line.setObjectName("imput_line")
+        self.input_line.setText("")
+        self.input_line.setObjectName("input_line")
 
 
         self.send_button = QtWidgets.QPushButton(self.groupBox_3)
@@ -238,9 +239,10 @@ class Ui_MainWindow(object):
                                         "")
         self.send_button.setAutoDefault(False)
         self.send_button.setObjectName("send_button")
+        self.send_button.clicked.connect(self.message)
 
-
-        self.chat_text = QtWidgets.QTextBrowser(self.groupBox_3)
+        self.chat_text = QtWidgets.QTextEdit(self.groupBox_3)
+        self.chat_text.setReadOnly(True)
         self.chat_text.setGeometry(QtCore.QRect(20, 30, 511, 421))
         self.chat_text.setStyleSheet("  background-color: white;\n"
                                         "  border: 1px solid #222222;\n"
@@ -285,6 +287,12 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def set_message(self, msg):
+        self.chat_text.append(msg)
+
+    def message(self):
+        msg = self.input_line.text()
+        self.rcv.send_messages(msg)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

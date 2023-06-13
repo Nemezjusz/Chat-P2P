@@ -9,6 +9,8 @@ class Rcv:
         self.priv_key = priv_key
         self.peer_key = None
         self.aes_key = None
+        self.sending_soc = None
+        self.set_message = None
 
     def receive_public_key(self, key):
         key = key.split('|')[-1]
@@ -21,7 +23,7 @@ class Rcv:
         self.aes_key = key
         print('AES key received successfully!')
 
-    def receive_file(self, sock, file_info):
+    def receive_file(self, file_info):
         file, file_name, file_size = file_info.split('|')
         file_size = int(file_size)
         print('Receiving file:', file_name)
@@ -31,7 +33,7 @@ class Rcv:
         with open(file_name, 'wb') as file:
             bytes_received = 0
             while bytes_received < file_size:
-                data = sock.recv(1024)
+                data = self.sending_soc.recv(1024)
                 data = unpad(cipher.decrypt(data),16)
                 file.write(data)
                 bytes_received += len(data)
@@ -39,14 +41,14 @@ class Rcv:
 
         print('File received successfully!')
 
-    def send_file(self, sock, message):
+    def send_file(self, message):
         _, file_path = message.split(' ')
         file_name = file_path.split('/')[-1]
         file_size = os.path.getsize(file_path)
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
         data = ('FILE|' + file_name + '|' + str(file_size)).encode('utf-8')
         data = cipher.encrypt(pad(data, 16))
-        sock.send(data)
+        self.sending_soc.send(data)
 
         with open(file_path, 'rb') as file:
             while True:
@@ -55,34 +57,37 @@ class Rcv:
                     break
 
                 data2 = cipher.encrypt(pad(data, 16))
-                sock.send(data2)
+                self.sending_soc.send(data2)
 
         print('File sent successfully!')
-    def receive_messages(self, sock):
+    def receive_messages(self):
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
 
         while True:
             try:
-                data = sock.recv(1024)
+                data = self.sending_soc.recv(1024)
                 data = unpad(cipher.decrypt(data), 16)
                 data= data.decode()
 
                 if data.startswith('FILE'):
-                    self.receive_file(sock, data)
+                    self.receive_file(self.sending_soc, data)
                 else:
-                    print('Received:', data)
+                    self.set_message("Peer: "+data)
+
 
             except ConnectionResetError:
                 print('Peer disconnected')
                 break
 
-    def send_messages(self, sending_sock):
-        cipher = AES.new(self.aes_key, AES.MODE_ECB)
-        while True:
-            message = input()
+    def get_last_message(self):
+        return self.last_message
 
-            if message.startswith('SEND'):
-                self.send_file(sending_sock, message)
-            else:
-                message = cipher.encrypt(pad(message.encode(), 16))
-                sending_sock.send(message)
+    def send_messages(self, message):
+        cipher = AES.new(self.aes_key, AES.MODE_ECB)
+
+        if message.startswith('SEND'):
+            self.send_file(self.sending_soc, message)
+        else:
+            self.set_message("You:  "+message)
+            message = cipher.encrypt(pad(message.encode(), 16))
+            self.sending_soc.send(message)
