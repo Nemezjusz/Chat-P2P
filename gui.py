@@ -24,6 +24,9 @@ class Ui_MainWindow(object):
         self.rcv = Rcv(pub_key, priv_key)
         self.rcv.set_message = self.set_message
         self.cht = Chat(rcv=self.rcv, enc=self.enc)
+        self.cht.set_status = self.set_status
+        self.cht.set_peer_ip = self.set_peer_ip
+        self.cht.set_port = self.set_port
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -67,6 +70,7 @@ class Ui_MainWindow(object):
                                     "  width: auto;\n"
                                     "")
         self.groupBox.setObjectName("groupBox")
+
         self.label_status = QtWidgets.QLabel(self.groupBox)
         self.label_status.setGeometry(QtCore.QRect(10, 20, 149, 41))
         self.label_status.setStyleSheet("background-color:#1B2430;\n"
@@ -287,9 +291,15 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+    def set_status(self, msg):
+        self.label_status.setText("Status: "+msg)
+    def set_peer_ip(self, msg):
+        self.label_peerip.setText("Peer IP: "+msg)
+    def set_port(self, msg):
+        self.label_port.setText("Port: "+msg)
     def set_message(self, msg):
         self.chat_text.append(msg)
-
     def message(self):
         msg = self.input_line.text()
         self.rcv.send_messages(msg)
@@ -300,10 +310,10 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "Chat P2P"))
         self.label_2.setText(_translate("MainWindow", "Your IP: 192.168.0.18"))
         self.groupBox.setTitle(_translate("MainWindow", "Info"))
-        self.label_status.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Status: Connected</span></p></body></html>"))
-        self.label_peerip.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Peer IP: 192.233.23.3</span></p></body></html>"))
-        self.label_name.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\"> Name: Paweł</span></p></body></html>"))
-        self.label_port.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Port:</span></p></body></html>"))
+        self.label_status.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Status: </span></p></body></html>"))
+        self.label_peerip.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Peer IP: </span></p></body></html>"))
+        self.label_name.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\"> Name: </span></p></body></html>"))
+        self.label_port.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Port: </span></p></body></html>"))
         self.label_key.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Key:  </span></p></body></html>"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Mode"))
         self.await_button.setText(_translate("MainWindow", "Await Connection"))

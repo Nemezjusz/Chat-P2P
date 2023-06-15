@@ -12,6 +12,9 @@ class Chat:
     def __init__(self,rcv,enc):
         self.rcv = rcv
         self.enc = enc
+        self.set_status = None
+        self.set_peer_ip = None
+        self.set_port = None
 
     def start_chat_await(self):
         # (pub_key, priv_key) = rsa.newkeys(512)
@@ -26,10 +29,16 @@ class Chat:
 
         sock.listen(1)
         print('Waiting for incoming connection...')
+        self.set_status("Awaiting")
 
         sending_sock, client_addr = sock.accept()
         self.rcv.sending_soc = sending_sock
-        print('Connected to peer:', client_addr)
+        print('Connected to peer:', client_addr[0])
+
+
+        self.set_status("Connected")
+        self.set_peer_ip(str(client_addr[0]))
+        self.set_port(str(listen_port))
 
         aes_key = get_random_bytes(16)
         self.rcv.aes_key = aes_key
@@ -61,6 +70,10 @@ class Chat:
         sending_sock.connect((target_ip, target_port))
         self.rcv.sending_soc = sending_sock
         print('Connected to peer')
+
+        self.set_status("Connected")
+        self.set_peer_ip(str(target_ip))
+        self.set_port(str(target_port))
 
         self.enc.send_public_key(sending_sock)
         while True:

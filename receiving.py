@@ -39,7 +39,7 @@ class Rcv:
                 bytes_received += len(data)
                 #print('Progress:', (bytes_received / file_size) * 100, '%')
 
-        print('File received successfully!')
+        self.set_message(f"File {file_name} received successfully")
 
     def send_file(self, message):
         _, file_path = message.split(' ')
@@ -59,7 +59,8 @@ class Rcv:
                 data2 = cipher.encrypt(pad(data, 16))
                 self.sending_soc.send(data2)
 
-        print('File sent successfully!')
+        self.set_message(f"File {file_name} send successfully")
+
     def receive_messages(self):
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
 
@@ -70,14 +71,13 @@ class Rcv:
                 data= data.decode()
 
                 if data.startswith('FILE'):
-                    self.receive_file(self.sending_soc, data)
+                    self.receive_file(data)
                 else:
                     self.set_message("Peer: "+data)
-
-
             except ConnectionResetError:
                 print('Peer disconnected')
                 break
+
 
     def get_last_message(self):
         return self.last_message
@@ -86,7 +86,7 @@ class Rcv:
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
 
         if message.startswith('SEND'):
-            self.send_file(self.sending_soc, message)
+            self.send_file(message)
         else:
             self.set_message("You:  "+message)
             message = cipher.encrypt(pad(message.encode(), 16))
