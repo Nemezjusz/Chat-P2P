@@ -12,33 +12,35 @@ class Chat:
     def __init__(self,rcv,enc):
         self.rcv = rcv
         self.enc = enc
+        self.my_sock= None
         self.set_status = None
         self.set_peer_ip = None
         self.set_port = None
 
     def start_chat_await(self):
-        # (pub_key, priv_key) = rsa.newkeys(512)
-        # enc = Enc(pub_key, priv_key)
-        # rcv = Rcv(pub_key, priv_key)
-        #
         listen_ip = '0.0.0.0'
         listen_port = 888  # int(input('Enter listening port: '))
+        self.set_port(str(listen_port))
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((listen_ip, listen_port))
+        self.my_sock = sock
+        await_thread = threading.Thread(target=self.await_connection)
+        await_thread.start()
 
-        sock.listen(1)
+    def await_connection(self):
+        self.my_sock.listen(1)
         print('Waiting for incoming connection...')
         self.set_status("Awaiting")
+        self.start_chat()
 
-        sending_sock, client_addr = sock.accept()
+    def start_chat(self):
+        sending_sock, client_addr = self.my_sock.accept()
         self.rcv.sending_soc = sending_sock
         print('Connected to peer:', client_addr[0])
 
-
         self.set_status("Connected")
         self.set_peer_ip(str(client_addr[0]))
-        self.set_port(str(listen_port))
 
         aes_key = get_random_bytes(16)
         self.rcv.aes_key = aes_key
@@ -56,12 +58,7 @@ class Chat:
         receive_thread = threading.Thread(target=self.rcv.receive_messages)
         receive_thread.start()
 
-        #rcv.send_messages(sending_sock)
-
     def start_chat_connect(self):
-        # (pub_key, priv_key) = rsa.newkeys(512)
-        # enc = Enc(pub_key, priv_key)
-        # rcv = Rcv(pub_key, priv_key)
 
         target_ip = '192.168.0.18'  # input('Enter peer IP: ')
         target_port = 888  # int(input('Enter peer port: '))
@@ -84,7 +81,7 @@ class Chat:
         receive_thread = threading.Thread(target=self.rcv.receive_messages)
         receive_thread.start()
 
-
-        #rcv.send_messages(sending_sock, cipher)
-
-
+    def disconnect(self):
+        self.rcv.sending_soc.close()
+        self.rcv.sending_soc = None
+        self.set_status("Disconnected")

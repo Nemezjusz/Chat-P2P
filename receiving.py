@@ -74,13 +74,10 @@ class Rcv:
                     self.receive_file(data)
                 else:
                     self.set_message("Peer: "+data)
-            except ConnectionResetError:
+            except ConnectionResetError or ConnectionAbortedError:
                 print('Peer disconnected')
                 break
 
-
-    def get_last_message(self):
-        return self.last_message
 
     def send_messages(self, message):
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
