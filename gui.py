@@ -344,7 +344,7 @@ class Ui_MainWindow(object):
         self.disconnect_button.setText(_translate("MainWindow", "Disconnect"))
         self.groupBox_3.setTitle(_translate("MainWindow", "Chat"))
         self.send_button.setText(_translate("MainWindow", "Send"))
-        self.send_button_2.setIcon(QIcon('45694.png'))
+        self.send_button_2.setIcon(QIcon('ico.png'))
 
     def open_file_system(self):
         filename, ok = QFileDialog.getOpenFileName(None, "Select a File","","All Files (*)")
