@@ -11,6 +11,7 @@ class Rcv:
         self.aes_key = None
         self.sending_soc = None
         self.set_message = None
+        self.file = None
 
     def receive_public_key(self, key):
         key = key.split('|')[-1]
@@ -41,11 +42,12 @@ class Rcv:
 
         self.set_message(f"File {file_name} received successfully")
 
-    def send_file(self, message):
-        _, file_path = message.split(' ')
+    def send_file(self, file_path):
+        #_, file_path = message.split(' ')
         file_name = file_path.split('/')[-1]
         file_size = os.path.getsize(file_path)
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
+
         data = ('FILE|' + file_name + '|' + str(file_size)).encode('utf-8')
         data = cipher.encrypt(pad(data, 16))
         self.sending_soc.send(data)
@@ -60,30 +62,33 @@ class Rcv:
                 self.sending_soc.send(data2)
 
         self.set_message(f"File {file_name} send successfully")
+        self.file = None
 
     def receive_messages(self):
-        cipher = AES.new(self.aes_key, AES.MODE_ECB)
+        try:
+            cipher = AES.new(self.aes_key, AES.MODE_ECB)
 
-        while True:
-            try:
-                data = self.sending_soc.recv(1024)
-                data = unpad(cipher.decrypt(data), 16)
-                data= data.decode()
+            while True:
+                try:
+                    data = self.sending_soc.recv(1024)
+                    data = unpad(cipher.decrypt(data), 16)
+                    data= data.decode()
 
-                if data.startswith('FILE'):
-                    self.receive_file(data)
-                else:
-                    self.set_message("Peer: "+data)
-            except ConnectionResetError or ConnectionAbortedError:
-                print('Peer disconnected')
-                break
-
+                    if data.startswith('FILE'):
+                        self.receive_file(data)
+                    else:
+                        self.set_message("Peer: "+data)
+                except ConnectionResetError:
+                    print('Peer disconnected')
+                    break
+        except ConnectionAbortedError:
+            print('Peer disconnected')
 
     def send_messages(self, message):
         cipher = AES.new(self.aes_key, AES.MODE_ECB)
 
-        if message.startswith('SEND'):
-            self.send_file(message)
+        if self.file is not None:
+            self.send_file(self.file)
         else:
             self.set_message("You:  "+message)
             message = cipher.encrypt(pad(message.encode(), 16))

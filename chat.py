@@ -16,6 +16,7 @@ class Chat:
         self.set_status = None
         self.set_peer_ip = None
         self.set_port = None
+        self.target_ip =None
 
     def start_chat_await(self):
         listen_ip = '0.0.0.0'
@@ -60,16 +61,23 @@ class Chat:
 
     def start_chat_connect(self):
 
-        target_ip = '192.168.0.18'  # input('Enter peer IP: ')
+        #target_ip = '192.168.0.18'  # input('Enter peer IP: ')
         target_port = 888  # int(input('Enter peer port: '))
+        if self.target_ip is None:
+            return
 
         sending_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        sending_sock.connect((target_ip, target_port))
+        try:
+            sending_sock.connect((self.target_ip, target_port))
+        except:
+            self.set_status("Wrong IP")
+            return
+
         self.rcv.sending_soc = sending_sock
         print('Connected to peer')
 
         self.set_status("Connected")
-        self.set_peer_ip(str(target_ip))
+        self.set_peer_ip(str(self.target_ip))
         self.set_port(str(target_port))
 
         self.enc.send_public_key(sending_sock)

@@ -17,6 +17,7 @@ class Ui_MainWindow(object):
         (pub_key, priv_key) = rsa.newkeys(512)
         self.enc = Enc(pub_key, priv_key)
         self.rcv = Rcv(pub_key, priv_key)
+        self.file = None
         self.rcv.set_message = self.set_message
         self.cht = Chat(rcv=self.rcv, enc=self.enc)
         self.cht.set_status = self.set_status
@@ -143,7 +144,7 @@ class Ui_MainWindow(object):
         self.connect_button.setGeometry(QtCore.QRect(10, 140, 151, 18))
         self.connect_button.setStyleSheet("background-color: #FF0000")
         self.connect_button.setObjectName("connect_button")
-        self.connect_button.clicked.connect(self.cht.start_chat_connect)
+        self.connect_button.clicked.connect(self.get_ip)
 
         self.disconnect_button = QtWidgets.QPushButton(self.groupBox_2)
         self.disconnect_button.setGeometry(QtCore.QRect(10, 165, 151, 18))
@@ -152,16 +153,17 @@ class Ui_MainWindow(object):
         self.disconnect_button.clicked.connect(self.cht.disconnect)
 
 
-        self.lineEdit = QtWidgets.QLineEdit(self.groupBox_2)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 100, 151, 31))
-        self.lineEdit.setStyleSheet("background-color: white;")
-        self.lineEdit.setText("")
-        self.lineEdit.setObjectName("lineEdit")
+        self.lineEdit_ip = QtWidgets.QLineEdit(self.groupBox_2)
+        self.lineEdit_ip.setGeometry(QtCore.QRect(10, 100, 151, 31))
+        self.lineEdit_ip.setStyleSheet("background-color: white;\n"
+                                       "color: black;")
+        self.lineEdit_ip.setText("")
+        self.lineEdit_ip.setObjectName("lineEdit")
 
 
         self.label_4.raise_()
         self.connect_button.raise_()
-        self.lineEdit.raise_()
+        self.lineEdit_ip.raise_()
         self.await_button.raise_()
         self.groupBox_3 = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBox_3.setGeometry(QtCore.QRect(200, 80, 551, 511))
@@ -187,9 +189,9 @@ class Ui_MainWindow(object):
                                         "  width: auto;")
         self.groupBox_3.setFlat(False)
         self.groupBox_3.setObjectName("groupBox_3")
-        self.imput_line = QtWidgets.QLineEdit(self.groupBox_3)
-        self.imput_line.setGeometry(QtCore.QRect(20, 460, 361, 41))
-        self.imput_line.setStyleSheet("QLineEdit { \n"
+        self.input_line = QtWidgets.QLineEdit(self.groupBox_3)
+        self.input_line.setGeometry(QtCore.QRect(20, 460, 361, 41))
+        self.input_line.setStyleSheet("QLineEdit { \n"
                                       "  background-color: #FFFFFF;\n"
                                       "  border: 1px solid #222222;\n"
                                       "  border-radius: 8px;\n"
@@ -212,8 +214,8 @@ class Ui_MainWindow(object):
                                       "  -webkit-user-select: none;\n"
                                       "  width: auto;\n"
                                       "}")
-        self.imput_line.setText("")
-        self.imput_line.setObjectName("imput_line")
+        self.input_line.setText("")
+        self.input_line.setObjectName("input_line")
 
 
         self.send_button = QtWidgets.QPushButton(self.groupBox_3)
@@ -346,8 +348,13 @@ class Ui_MainWindow(object):
 
     def open_file_system(self):
         filename, ok = QFileDialog.getOpenFileName(None, "Select a File","","All Files (*)")
-        print(filename)
+        self.rcv.file = filename
+        self.input_line.setText("File Selected")
 
+    def get_ip(self):
+        ip = self.lineEdit_ip.text()
+        self.cht.target_ip = ip
+        self.cht.start_chat_connect()
     def set_status(self, msg):
         self.label_status.setText("Status: " + msg)
 
@@ -361,8 +368,11 @@ class Ui_MainWindow(object):
         self.chat_text.append(msg)
 
     def message(self):
+        if not "Connected" in self.label_status.text():
+            return
         msg = self.input_line.text()
         self.rcv.send_messages(msg)
+        self.input_line.setText("")
 
 
 if __name__ == "__main__":
