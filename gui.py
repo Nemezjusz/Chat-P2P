@@ -1,4 +1,4 @@
-
+from datetime import datetime
 import rsa
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
@@ -78,11 +78,11 @@ class Ui_MainWindow(object):
         self.label_peerip.setObjectName("label_peerip")
 
 
-        self.label_name = QtWidgets.QLabel(self.groupBox)
-        self.label_name.setGeometry(QtCore.QRect(10, 70, 149, 41))
-        self.label_name.setStyleSheet("background-color:#1B2430;\n"
+        self.label_time = QtWidgets.QLabel(self.groupBox)
+        self.label_time.setGeometry(QtCore.QRect(10, 70, 149, 41))
+        self.label_time.setStyleSheet("background-color:#1B2430;\n"
                                       "color: white;")
-        self.label_name.setObjectName("label_name")
+        self.label_time.setObjectName("label_name")
 
 
         self.label_port = QtWidgets.QLabel(self.groupBox)
@@ -331,7 +331,7 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "Info"))
         self.label_status.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Status: </span></p></body></html>"))
         self.label_peerip.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Peer IP: </span></p></body></html>"))
-        self.label_name.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\"> Name: </span></p></body></html>"))
+        self.label_time.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\"> Time: </span></p></body></html>"))
         self.label_port.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Port: </span></p></body></html>"))
         self.label_key.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Key:  </span></p></body></html>"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Mode"))
@@ -354,6 +354,12 @@ class Ui_MainWindow(object):
         self.cht.start_chat_connect()
     def set_status(self, msg):
         self.label_status.setText("Status: " + msg)
+        if self.label_status.text() == "Status: Connected":
+            currentDateAndTime = datetime.now()
+            currentTime = currentDateAndTime.strftime("%H:%M:%S")
+            self.label_time.setText("Time: "+currentTime)
+        else:
+            self.label_time.setText("Time: ")
 
     def set_peer_ip(self, msg):
         self.label_peerip.setText("Peer IP: " + msg)
