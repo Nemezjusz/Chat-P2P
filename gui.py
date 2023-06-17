@@ -1,9 +1,5 @@
 
-from encryption import Enc
-from receiving import Rcv
 import rsa
-from Cryptodome.Cipher import AES
-from Cryptodome.Random import get_random_bytes
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QFileDialog
@@ -26,7 +22,7 @@ class Ui_MainWindow(object):
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(760, 633)
+        MainWindow.setFixedSize(760, 633)
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")

@@ -1,12 +1,7 @@
 import socket
 import threading
-import os
-from encryption import Enc
-from receiving import Rcv
 import rsa
-from Cryptodome.Cipher import AES
 from Cryptodome.Random import get_random_bytes
-from Cryptodome.Util.Padding import pad, unpad
 
 class Chat:
     def __init__(self,rcv,enc):
@@ -61,8 +56,7 @@ class Chat:
 
     def start_chat_connect(self):
 
-        #target_ip = '192.168.0.18'  # input('Enter peer IP: ')
-        target_port = 888  # int(input('Enter peer port: '))
+        target_port = 888
         if self.target_ip is None:
             return
 

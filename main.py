@@ -1,4 +1,4 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from gui import Ui_MainWindow
 
 if __name__ == "__main__":
@@ -7,6 +7,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    ui.setFixedWidth(width)
     MainWindow.show()
     sys.exit(app.exec_())

@@ -1,7 +1,6 @@
 from encryption import Enc
 import os
 from Cryptodome.Cipher import AES
-from Cryptodome.Random import get_random_bytes
 from Cryptodome.Util.Padding import pad, unpad
 class Rcv:
     def __init__(self, pub_key, priv_key):
@@ -35,7 +34,7 @@ class Rcv:
             bytes_received = 0
             while bytes_received < file_size:
                 data = self.sending_soc.recv(1024)
-                data = unpad(cipher.decrypt(data),16)
+                #data = unpad(cipher.decrypt(data),16)
                 file.write(data)
                 bytes_received += len(data)
                 #print('Progress:', (bytes_received / file_size) * 100, '%')
@@ -58,8 +57,8 @@ class Rcv:
                 if not data:
                     break
 
-                data2 = cipher.encrypt(pad(data, 16))
-                self.sending_soc.send(data2)
+                #data2 = cipher.encrypt(pad(data, 16))
+                self.sending_soc.send(data)
 
         self.set_message(f"File {file_name} send successfully")
         self.file = None
