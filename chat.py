@@ -35,7 +35,6 @@ class Chat:
         self.rcv.sending_soc = sending_sock
         print('Connected to peer:', client_addr[0])
 
-        self.set_status("Connected")
         self.set_peer_ip(str(client_addr[0]))
 
         aes_key = get_random_bytes(16)
@@ -50,6 +49,8 @@ class Chat:
         n, e = str(self.rcv.peer_key).split(",")
         encrypted_key = self.enc.encrypt_message(aes_key, rsa.PublicKey(int(n), int(e)))
         self.enc.send_aes_key(sending_sock, encrypted_key)
+
+        self.set_status("Connected")
 
         receive_thread = threading.Thread(target=self.rcv.receive_messages)
         receive_thread.start()
@@ -70,15 +71,17 @@ class Chat:
         self.rcv.sending_soc = sending_sock
         print('Connected to peer')
 
-        self.set_status("Connected")
-        self.set_peer_ip(str(self.target_ip))
-        self.set_port(str(target_port))
+
 
         self.enc.send_public_key(sending_sock)
         while True:
             data = sending_sock.recv(1024)
             self.rcv.receive_aes_key(data)
             break
+
+        self.set_status("Connected")
+        self.set_peer_ip(str(self.target_ip))
+        self.set_port(str(target_port))
 
         receive_thread = threading.Thread(target=self.rcv.receive_messages)
         receive_thread.start()

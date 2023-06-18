@@ -333,7 +333,7 @@ class Ui_MainWindow(object):
         self.label_peerip.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Peer IP: </span></p></body></html>"))
         self.label_time.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\"> Time: </span></p></body></html>"))
         self.label_port.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Port: </span></p></body></html>"))
-        self.label_key.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">Key:  </span></p></body></html>"))
+        self.label_key.setText(_translate("MainWindow", "<html><head/><body><p align=\"justify\"><span style=\" font-size:8pt;\">AES Key:  </span></p></body></html>"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Mode"))
         self.await_button.setText(_translate("MainWindow", "Await Connection"))
         self.label_4.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:9pt;\">Enter IP address:</span></p></body></html>"))
@@ -358,6 +358,10 @@ class Ui_MainWindow(object):
             currentDateAndTime = datetime.now()
             currentTime = currentDateAndTime.strftime("%H:%M:%S")
             self.label_time.setText("Time: "+currentTime)
+            if self.rcv.aes_key is not None:
+                self.label_key.setText("AES Key: Exchanged")
+            else:
+                self.label_key.setText("AES Key:")
         else:
             self.label_time.setText("Time: ")
 
