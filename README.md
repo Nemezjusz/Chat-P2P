@@ -20,8 +20,8 @@ Program nie działa poprawnie (wiadomości nie docierają), w odpowiednim miejsc
 ## Zadanie 3
 W szyfrowaniu z kluczem asymetrycznym używamy dwóch kluczy: klucza publicznego i klucza prywatnego. Klucz publiczny służy do szyfrowania danych, a klucz prywatny do odszyfrowywania danych. Z nazwy klucz publiczny może być publiczny (może być wysłany do każdego, kto potrzebuje wysłać dane). Nikt nie ma twojego klucza prywatnego, więc nikt w środku nie może odczytać twoich danych.
 
-W folderze [zadanie2](zadanie2) znajaduje się schemat kodu Szyfrowania kluczem asymetrycznym.
-Twoim zadaniem jest zaszyfrowanie wiadomości a następnie jej odszyfrowanie
+- W folderze [zadanie2](zadanie2) znajaduje się schemat kodu Szyfrowania kluczem asymetrycznym.
+- Twoim zadaniem jest zaszyfrowanie wiadomości a następnie jej odszyfrowanie
 
 przydatne funkcje:
 rsa.newkeys
