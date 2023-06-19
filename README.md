@@ -30,6 +30,5 @@ rsa.ectrypt
 encode()
 rsa.decrypt
 
-## Przejdź do Branch zadania
 
 
