@@ -28,6 +28,6 @@ przycisk ***Await Connection***. Nastepnie w drugiego oknie wpisujemy odpowiedni
 wszystko przebiegło bez problemu **Status** powinien zmienić sie na **Connected**. W tym momencie jesteśmy gotowi na 
 rozpoczecie rozmowy.
 
-## Przejdź do Branch zadania
+### Przejdź do Branch zadania
 
 
