@@ -12,7 +12,8 @@ socket.sendall(('wiadomość').encode('utf-8'))
 - Uruchom serwer i utworzonego klienta.
   
 ## Zadanie 2
-W folderze [zadanie1](zadanie1) znajdziesz kod, postaraj się go przeanalizować jest to bardzo uproszczony model czatu p2p.
+- W folderze [zadanie1](zadanie1) znajdziesz kod, postaraj się go przeanalizować jest to bardzo uproszczony model czatu p2p.
+  
 Uruchom go odpalając dwa terminale (na jednym stwórz pokój i podaj port np 10 na drugim dołącz do pokoju wpisując swoje ip oraz port taki sam numer jak przy tworzeniu pokoju)
 Program nie działa poprawnie (wiadomości nie docierają), w odpowiednim miejscu uzupełnij brakujący kod tak aby wiadmości mogły być przesyłane.
 
