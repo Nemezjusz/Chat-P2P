@@ -30,6 +30,6 @@ rsa.ectrypt
 encode()
 rsa.decrypt
 
-## Przejdź do <a href="[https://github.com/Nemezjusz/Chat-P2P/tree/zadania)https://github.com/Nemezjusz/Chat-P2P/tree/zadania"]>Branch zadania</a>
+## Przejdź do Branch zadania
 
 
