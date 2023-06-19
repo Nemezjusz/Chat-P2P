@@ -13,7 +13,7 @@ PyQt5 i zawartego w niej narzędzia Designer.
 ### Instrukcja obsługi aplikacji
 Przed rozpoczęciem należy pobrać niezbędne biblioteki za pomocą komendy:
 ```console
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 Aby uruchomić aplikacje należy przy pomocy terminala wejść w folder z pobraną aplikacja i uruchomić ją za pomocą komendy:
 ```console
