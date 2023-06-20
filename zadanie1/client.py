@@ -23,7 +23,6 @@ def start_client():
     
     # Tutaj wprowadz wysyłanie wiadomości
 
-    return
 
 
 # Uruchomienie klienta
