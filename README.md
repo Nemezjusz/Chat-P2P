@@ -17,14 +17,14 @@ tajna_wiadomosc = b'\xe3\x12\x1dOc\xe76e\x9a\xb6\x82\x10\x87E\xd3\xa8'
 ```
 Oprócz funkcji takich jak *rsa.decrypt*, *AES.new()* (używamy trybu AES.MODE_ECB) przydatna bedzie taże funkcja *unpad()*. Potrzebujemy jej ponieważ algorytm AES szyfruje wiadomości w bloki po 16 bajtów. Jeśli wiadomość jest za krótka musimy ja uzupełnić putymi bajtami. Funkcja *unpad()* "wypakowuje" wiadomość z pustych bajtów.  
 
-##Zadanie 3
+## Zadanie 3
 ** **W tym i następnym zadaniu będziemy starać się zaimplementować bardzo uproszczony czat p2p, wszytkie wiadmosci beda wyswietlane w konsoli, bez enkrypcji
 Kod do uzupełnienia znajdziesz w folderze zadanie3.\
 Peer dołączający do pokoju nie jest poprawnie skonfigurowany, Twoim zadaniem będzie uzupełnienie brakującego kodu w funkcji join_room() \
 Podpowiedź:\
 Przeanalizuj kod w funkcji create_room() mechanika wysyłania i odbierania wiadomości jest bardzo podobna\
 Po poprawnym wykonaniu ćwiczenia po uruchomieniu dwóch terminali powinieneś nawiązać połączenie, ale jeszcze nie będziesz mógł wysyłać wiadomości 
-##Zadanie 4
+## Zadanie 4
 Jest to kontynuacja zadania 3.\ 
 Program zadanie3 nadal nie działa poprawnie, nie możesz wysyłać wiadomości
 Napraw problem tak aby komunikacja pomiędzy peerami (2 terminalami) byla możliwa.\
