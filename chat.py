@@ -86,7 +86,5 @@ class Chat:
         receive_thread = threading.Thread(target=self.rcv.receive_messages)
         receive_thread.start()
 
-    def disconnect(self):
-        self.rcv.sending_soc.close()
-        self.rcv.sending_soc = None
-        self.set_status("Disconnected")
+
+

@@ -7,6 +7,7 @@ from chat import Chat
 from receiving import Rcv
 from encryption import Enc
 import socket
+from time import sleep
 class Ui_MainWindow(object):
 
     def __init__(self):
@@ -15,6 +16,7 @@ class Ui_MainWindow(object):
         self.rcv = Rcv(pub_key, priv_key)
         self.file = None
         self.rcv.set_message = self.set_message
+        self.rcv.disconnect = self.disconnect
         self.cht = Chat(rcv=self.rcv, enc=self.enc)
         self.cht.set_status = self.set_status
         self.cht.set_peer_ip = self.set_peer_ip
@@ -147,7 +149,7 @@ class Ui_MainWindow(object):
         self.disconnect_button.setGeometry(QtCore.QRect(10, 165, 151, 18))
         self.disconnect_button.setStyleSheet("background-color: #FF0000")
         self.disconnect_button.setObjectName("disconnect_button")
-        self.disconnect_button.clicked.connect(self.cht.disconnect)
+        self.disconnect_button.clicked.connect(self.send_disconnect_msg)
 
 
         self.lineEdit_ip = QtWidgets.QLineEdit(self.groupBox_2)
@@ -364,6 +366,17 @@ class Ui_MainWindow(object):
                 self.label_key.setText("AES Key:")
         else:
             self.label_time.setText("Time: ")
+
+    def send_disconnect_msg(self):
+        self.rcv.send_messages("DISCONNECT")
+        sleep(1)
+        self.disconnect()
+    def disconnect(self):
+
+        self.set_status("Disconnected")
+        self.set_port("")
+        self.set_peer_ip("")
+        self.label_key.setText("AES Key: ")
 
     def set_peer_ip(self, msg):
         self.label_peerip.setText("Peer IP: " + msg)

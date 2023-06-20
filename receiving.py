@@ -11,6 +11,7 @@ class Rcv:
         self.sending_soc = None
         self.set_message = None
         self.file = None
+        self.disconnect = None
 
     def receive_public_key(self, key):
         key = key.split('|')[-1]
@@ -75,6 +76,9 @@ class Rcv:
 
                     if data.startswith('FILE'):
                         self.receive_file(data)
+                    elif data.startswith('DISCONNECT'):
+                        self.disconnect()
+
                     else:
                         self.set_message("Peer: "+data)
                 except ConnectionResetError:
