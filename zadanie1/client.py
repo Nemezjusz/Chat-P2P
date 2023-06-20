@@ -14,19 +14,15 @@ def receive_messages(client_socket):
 
 
 def start_client():
-    # client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # client_socket.connect(('localhost', 1234))
+    # Tutaj połącz się z socketem
 
-    # print('Połączono z serwerem czatu.')
-    #
-    # # Wątek do odbierania wiadomości od serwera
+    
+    # # Wątek do odbierania wiadomości od serwera (odkomentuj)
     # receive_thread = threading.Thread(target=receive_messages, args=(client_socket,))
     # receive_thread.start()
-    #
-    # # Wysyłanie wiadomości do serwera
-    # while True:
-    #     message = input()
-    #     client_socket.sendall(message.encode('utf-8'))
+    
+    # Tutaj wprowadz wysyłanie wiadomości
+
     return
 
 
