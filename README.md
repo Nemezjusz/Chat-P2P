@@ -1,5 +1,5 @@
 ## Zadanie 1
-Na początek, aby móc dostrzec różnice i popracować na socketach wykonamy ćwiczenie ze zwykłym serwerem i klientem. Wykonamy prosty chat w konsoli.
+Na początek, aby dostrzec różnice i popracować na socketach wykonamy ćwiczenie ze zwykłym serwerem i klientem. Wykonamy prosty chat w konsoli.
 W folderze [zadanie1](zadanie1) zanjduje się kod serwera i część kodu klinenta. Uzupełnij go zgodnie ze wskazówkami.
 - Utwórz socket i połącz go z serwerm. Serwer nasłuchuje na porcie 1234. Socket utoworzysz za pomocą komendy: 
 ```python
