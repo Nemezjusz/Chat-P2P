@@ -18,7 +18,7 @@ tajna_wiadomosc = b'\xe3\x12\x1dOc\xe76e\x9a\xb6\x82\x10\x87E\xd3\xa8'
 Oprócz funkcji takich jak *rsa.decrypt*, *AES.new()* (używamy trybu AES.MODE_ECB) przydatna bedzie taże funkcja *unpad()*. Potrzebujemy jej ponieważ algorytm AES szyfruje wiadomości w bloki po 16 bajtów. Jeśli wiadomość jest za krótka musimy ja uzupełnić putymi bajtami. Funkcja *unpad()* "wypakowuje" wiadomość z pustych bajtów.  
 
 ## Zadanie 3
-**W tym i następnym zadaniu będziemy starać się zaimplementować bardzo uproszczony czat p2p, wszytkie wiadmosci beda wyswietlane w konsoli, bez enkrypcji**
+**W tym i następnym zadaniu będziemy starać się zaimplementować bardzo uproszczony czat p2p, wszytkie wiadmosci beda wyswietlane w konsoli, bez enkrypcji**\\
 Kod do uzupełnienia znajdziesz w folderze zadanie3.\
 Peer dołączający do pokoju nie jest poprawnie skonfigurowany, Twoim zadaniem będzie uzupełnienie brakującego kodu w funkcji join_room() \
 Podpowiedź:\
