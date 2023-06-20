@@ -11,16 +11,12 @@ socket.sendall(('wiadomość').encode('utf-8'))
 ```
 - Uruchom serwer i utworzonego klienta.
 ## Zadanie 2
-W szyfrowaniu z kluczem asymetrycznym używamy dwóch kluczy: klucza publicznego i klucza prywatnego. Klucz publiczny służy do szyfrowania danych, a klucz prywatny do odszyfrowywania danych. Z nazwy klucz publiczny może być publiczny (może być wysłany do każdego, kto potrzebuje wysłać dane). Nikt nie ma twojego klucza prywatnego, więc nikt w środku nie może odczytać twoich danych.
+Bezpieczna wymina wiadomości i plików w naszej aplikacji opiera sie na szyfrowaniu ich kluczem AES. Niestety pojawia się problem przekazania samego klucza. Problem rozwiązujemy dzięki algorytmowi RSA. Klucz AES szyfrujemy kluczem publicznym naszego peera, co pozwala mu na rozszyfrowanie go swoim kluczem prywatnym. W folderze [zadanie2](zadanie2) znajduje się zarówno zaszyfowany klucz AES jak i klucz prywatny. Użyj go aby rozszyfrować klucz AES a nastpnie postaraj się sprawdzić co kryje sie pod tajną wiadomościa: 
+```python
+tajna_wiadomosc = b'\xe3\x12\x1dOc\xe76e\x9a\xb6\x82\x10\x87E\xd3\xa8'
+```
+Oprócz funkcji takich jak *rsa.decrypt*, *AES.new()* (używamy trybu AES.MODE_ECB) przydatna bedzie taże funkcja *unpad()*. Potrzebujemy jej ponieważ algorytm AES szyfruje wiadomości w bloki po 16 bajtów. Jeśli wiadomość jest za krótka musimy ja uzupełnić putymi bajtami. Funkcja *unpad()* "wypakowuje" wiadomość z pustych bajtów.  
 
-- W folderze [zadanie2](zadanie2) znajaduje się schemat kodu Szyfrowania kluczem asymetrycznym.
-- Twoim zadaniem jest zaszyfrowanie wiadomości a następnie jej odszyfrowanie
-
-przydatne funkcje:
-rsa.newkeys
-rsa.ectrypt
-encode()
-rsa.decrypt
 ## Zadanie 3
 - W folderze [zadanie3](zadanie3) znajdziesz kod, postaraj się go przeanalizować jest to bardzo uproszczony model czatu p2p.
   
