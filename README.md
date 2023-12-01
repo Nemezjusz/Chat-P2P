@@ -1,9 +1,8 @@
-## Chat P2P
+# Chat P2P
 Głównym założeniem projektu było pogłębienie wiedzy na temat sieci **P2P**. Jest to temat który rzeczywiście nas zainteresował i 
 chcieliśmy stworzyć coś na jego podstawie. Wybraliśmy chat, który nie dość że okazał się idealnym narzędziem do eksperymentów to 
 dodatkowo pozwolił na rozwinięcie wiedzy na temat **szyfrowania i bezpieczeństwa**, a także wzbogacił nasze umiejętności w tworzeniu **interfejsu użytkownika**.  
 
-<br>
 
 ## P2P
 Na czym polega peer to peer?
