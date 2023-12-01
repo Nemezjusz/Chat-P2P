@@ -1,8 +1,16 @@
+## Chat P2P
+Głównym założeniem projektu było pogłębienie wiedzy na temat sieci **P2P**. Jest to temat który rzeczywiście nas zainteresował i 
+chcieliśmy stworzyć coś na jego podstawie. Wybraliśmy chat, który nie dość że okazał się idealnym narzędziem do eksperymentów to 
+dodatkowo pozwolił na rozwinięcie wiedzy na temat **szyfrowania i bezpieczeństwa**, a także wzbogacił nasze umiejętności w tworzeniu **interfejsu użytkownika**.  
+
+<br>
+
 ## P2P
 Na czym polega peer to peer?
-Peer-to-peer (P2P) to model komunikacji komputerowej oparty na idei decentralizacji. Sieć P2P w przeciwieństwie do tradycyjnego modelu serwer-klient, umożliwia interakcje i wymianę danych wprost między wszystkimi użytkownikami
+Peer-to-peer (P2P) to model komunikacji komputerowej oparty na idei decentralizacji. Sieć P2P w przeciwieństwie do tradycyjnego modelu serwer-klient, umożliwia interakcje i wymianę danych wprost między wszystkimi użytkownikami.
 
-## Chat P2P
+
+## Funkcjonalności
 Stworzona przez nas aplikacja służy do bezpośredniej komunikacji hostów (bez użycia serwera) w danej sieci lokalnej. 
 Pozwala ona na wymiane wiadomości tekstowych jak i zarówno wymiane plików bez względu na ich rozszerzenie czy rozmiar(?).
 Osiagamy to za pomocą operacji na socketach(...). 
