@@ -6,9 +6,15 @@ Peer-to-peer (P2P) to model komunikacji komputerowej oparty na idei decentraliza
 Stworzona przez nas aplikacja służy do bezpośredniej komunikacji hostów (bez użycia serwera) w danej sieci lokalnej. 
 Pozwala ona na wymiane wiadomości tekstowych jak i zarówno wymiane plików bez względu na ich rozszerzenie czy rozmiar(?).
 Osiagamy to za pomocą operacji na socketach(...). 
-Wymiana wiadomości jest dodatkowo enkryptowana za pomocą szyfru blokowego AES w trybie ECB. Klucz wymieniany jest za 
-pomocą asymetrycznego algorytmu RSA co zapewnia ochrone przed jego przejęciem. GUI zostało wykonane za pomocą biblioteki 
-PyQt5 i zawartego w niej narzędzia Designer.
+Wymiana wiadomości jest dodatkowo enkryptowana za pomocą szyfru blokowego **AES w trybie ECB**. Klucz wymieniany jest za 
+pomocą asymetrycznego algorytmu **RSA** co zapewnia ochrone przed jego przejęciem. GUI zostało wykonane za pomocą biblioteki 
+**PyQt5** i zawartego w niej narzędzia Designer.
+
+![obraz](https://github.com/Nemezjusz/Chat-P2P/assets/50834734/1a6b0313-d7ea-42d4-91e7-968f87e4c063)
+
+Na załączonym obrazie możemy zaobserwować ustanowione połączenie i fragment konwersacji na dwóch instancjach aplikacji. 
+Jak widać wymiana wiadomości odbywa się bezproblemowo i bezpiecznie. Wysyłanie, w tym przypadku obraz także powiodło się bez żadnych strat czy błędów.
+Dodatkowo w lewej części wyświetlają nam sie informacje opisujące miedzy innymi status połączenia.
 
 ### Instrukcja obsługi aplikacji
 Przed rozpoczęciem należy pobrać niezbędne biblioteki za pomocą komendy:
@@ -28,6 +34,5 @@ przycisk ***Await Connection***. Nastepnie w drugiego oknie wpisujemy odpowiedni
 wszystko przebiegło bez problemu **Status** powinien zmienić sie na **Connected**. W tym momencie jesteśmy gotowi na 
 rozpoczecie rozmowy.
 
-### Przejdź do branch'a zadania
 
 
