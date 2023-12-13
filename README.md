@@ -10,7 +10,7 @@ Peer-to-peer (P2P) to model komunikacji komputerowej oparty na idei decentraliza
 
 
 ## Funkcjonalności
-Stworzona przez nas aplikacja służy do bezpośredniej komunikacji hostów (bez użycia serwera) w danej sieci lokalnej. 
+Aplikacja służy do bezpośredniej komunikacji hostów (bez użycia serwera) w danej sieci lokalnej. 
 Pozwala ona na wymiane wiadomości tekstowych jak i zarówno wymiane plików bez względu na ich rozszerzenie czy rozmiar(?).
 Osiagamy to za pomocą operacji na socketach(...). 
 Wymiana wiadomości jest dodatkowo enkryptowana za pomocą szyfru blokowego **AES w trybie ECB**. Klucz wymieniany jest za 
